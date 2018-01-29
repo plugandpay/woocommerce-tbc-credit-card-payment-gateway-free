@@ -1,0 +1,111 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "c2ec8b3c8c9fddb9c4e06479c8aaad38",
+    "content-hash": "4f81632f8027b960d63e059cdd7524cf",
+    "packages": [
+        {
+            "name": "alcohol/iso4217",
+            "version": "3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alcohol/iso4217.git",
+                "reference": "1966db467a2238c1bf15b7fa72259e7cae73e3f5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alcohol/iso4217/zipball/1966db467a2238c1bf15b7fa72259e7cae73e3f5",
+                "reference": "1966db467a2238c1bf15b7fa72259e7cae73e3f5",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.4 || ^7.0"
+            },
+            "require-dev": {
+                "phpunit/php-invoker": "@stable",
+                "phpunit/phpunit": "^4.6 || ^5.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Alcohol\\": "."
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rob Bast",
+                    "email": "rob.bast@gmail.com"
+                }
+            ],
+            "description": "ISO 4217 PHP Library",
+            "homepage": "http://alcohol.github.io/iso4217/",
+            "keywords": [
+                "4217",
+                "ISO 4217",
+                "currencies",
+                "iso",
+                "library"
+            ],
+            "time": "2015-11-04 11:48:24"
+        },
+        {
+            "name": "wearede/tbcpay-php",
+            "version": "0.9.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wearede/tbcpay-php.git",
+                "reference": "0f538ec39521b99a454269edb7e6cc14869bd87b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wearede/tbcpay-php/zipball/0f538ec39521b99a454269edb7e6cc14869bd87b",
+                "reference": "0f538ec39521b99a454269edb7e6cc14869bd87b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "WeAreDe\\TbcPay\\": "src/"
+                },
+                "psr-4": {
+                    "WeAreDe\\TbcPay\\": "src/WeAreDe/TbcPay/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sandro Dzneladze",
+                    "email": "sandro@weare.de.com"
+                }
+            ],
+            "description": "online payments php SDK - collect credit card payments via TbcBank processor",
+            "time": "2017-03-08 06:11:52"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
