@@ -96,7 +96,6 @@ function init_woo_gateway_tbc() {
 			self::$log_enabled = $this->debug;
 
 			// Hooks
-			add_action( 'wp_enqueue_scripts', array( $this, 'payment_scripts' ) );
 			add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 			add_action( 'woocommerce_admin_order_data_after_order_details', array( $this, 'order_details' ) );
 			add_action( 'woocommerce_api_redirect_to_payment_form', array( $this, 'redirect_to_payment_form' ) );
@@ -365,21 +364,6 @@ function init_woo_gateway_tbc() {
 		public function is_wearede_plugin() {
 			echo json_encode( array( 'status' => 'true', 'version' => '1.0.2' ) );
 			exit();
-		}
-
-		/**
-		 * payment_scripts function.
-		 *
-		 * Outputs scripts used for Tbc payment
-		 *
-		 * @access public
-		 */
-		public function payment_scripts() {
-			if ( ! is_checkout() && ! $this->is_available() ) {
-				return;
-			}
-
-			wp_enqueue_script( 'woocommerce_tbc_checkout', plugins_url( 'js/tbc_checkout.js', __FILE__ ), array( 'jquery' ), '0.1', true );
 		}
 
 		/**
