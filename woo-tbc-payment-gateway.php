@@ -10,36 +10,43 @@
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Domain Path: /languages
  * Text Domain: woo-tbc
-*/
+ * WC requires at least: 3.0.0
+ * WC tested up to: 3.4.4
 
-/**
- * Don't open this file directly!
+ * Intellectual Property rights, and copyright, reserved by Plug and Pay, Ltd. as allowed by law include,
+ * but are not limited to, the working concept, function, and behavior of this software,
+ * the logical code structure and expression as written.
+ *
+ * @package     WooCommerce TBC Credit Card Payment Gateway (Free)
+ * @author      Plug and Pay Ltd. https://plugandpay.ge/
+ * @copyright   Copyright (c) Plug and Pay Ltd. (support@plugandpay.ge)
+ * @since       1.0.3
+ * @license     http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
-    exit;
+	exit;
 }
 
-/**
- * Composer autoload magic
- */
+// Composer autoload.
 require __DIR__ . '/vendor/autoload.php';
 
-/**
- * tbcpay-php is namespaced
- */
 use WeAreDe\TbcPay\TbcPayProcessor;
 
 /**
- * Register the gateway for use
+ * Register the payment gateway.
+ *
+ * @since 1.0.0
+ * @param array $gateways Payment gateways.
  */
-function add_woo_gateway_tbc_class( $methods )  {
-	$methods[] = 'WC_Gateway_TBC';
-	return $methods;
+function add_woo_gateway_tbc_class( $gateways ) {
+	$gateways[] = 'WC_Gateway_TBC';
+	return $gateways;
 }
 add_filter( 'woocommerce_payment_gateways', 'add_woo_gateway_tbc_class' );
 
 /**
- * Initialize class on plugins_loaded
+ * Initialize class on plugins_loaded.
  */
 function init_woo_gateway_tbc() {
 
@@ -64,27 +71,23 @@ function init_woo_gateway_tbc() {
 		public static $log = false;
 
 		/**
-		 * Constructor
+		 * Constructor.
 		 */
 		function __construct() {
-			// Woo required settings
 			$this->id                 = 'tbc';
 			$this->has_fields         = false;
 			$this->order_button_text  = __( 'Proceed to Tbc', 'woo-tbc' );
-			$this->method_title       = __( 'Tbc', 'woo-tbc' );
-			$this->method_description = sprintf( __( 'Tbc sends customers Tbc to enter their payment information. Tbc IPN requires cURL support. Check the %ssystem status%s page for more details.', 'woo-tbc' ), '<a href="' . admin_url( 'admin.php?page=wc-status' ) . '">', '</a>' );
+			$this->method_title       = __( 'TBC (Free)', 'woo-tbc' );
+			$this->method_description = __( 'Accept Visa/Mastercard payments in your WooCommerce shop using TBC gateway.', 'woo-tbc' );
 			$this->supports           = array(
-				'products'
+				'products',
 			);
 
-			// Gateway settings
 			$this->payment_form_url = '/wc-api/redirect_to_payment_form?transaction_id=%s';
 
-			// Load the settings
 			$this->init_form_fields();
 			$this->init_settings();
 
-			// Define user set variables
 			$this->title       = $this->get_option( 'title' );
 			$this->description = $this->get_option( 'description' );
 			$this->debug       = 'yes' === $this->get_option( 'debug', 'no' );
@@ -95,7 +98,6 @@ function init_woo_gateway_tbc() {
 
 			self::$log_enabled = $this->debug;
 
-			// Hooks
 			add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 			add_action( 'woocommerce_admin_order_data_after_order_details', array( $this, 'order_details' ) );
 			add_action( 'woocommerce_api_redirect_to_payment_form', array( $this, 'redirect_to_payment_form' ) );
@@ -105,7 +107,6 @@ function init_woo_gateway_tbc() {
 			add_action( 'woocommerce_api_is_wearede', array( $this, 'is_wearede_plugin' ) );
 			add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 
-			// wearede\tbcpay-php
 			$this->Tbc = new TbcPayProcessor( $this->cert_path, $this->cert_pass, $_SERVER['REMOTE_ADDR'] );
 		}
 
