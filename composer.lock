@@ -9,16 +9,16 @@
     "packages": [
         {
             "name": "alcohol/iso4217",
-            "version": "3.1.0",
+            "version": "3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alcohol/iso4217.git",
-                "reference": "1966db467a2238c1bf15b7fa72259e7cae73e3f5"
+                "reference": "140bea9b461da9bdac4b1d3c547ea8433714258b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alcohol/iso4217/zipball/1966db467a2238c1bf15b7fa72259e7cae73e3f5",
-                "reference": "1966db467a2238c1bf15b7fa72259e7cae73e3f5",
+                "url": "https://api.github.com/repos/alcohol/iso4217/zipball/140bea9b461da9bdac4b1d3c547ea8433714258b",
+                "reference": "140bea9b461da9bdac4b1d3c547ea8433714258b",
                 "shasum": ""
             },
             "require": {
@@ -58,20 +58,20 @@
                 "iso",
                 "library"
             ],
-            "time": "2015-11-04 11:48:24"
+            "time": "2017-12-01 19:37:47"
         },
         {
             "name": "wearede/tbcpay-php",
-            "version": "0.9.0",
+            "version": "0.9.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/wearede/tbcpay-php.git",
-                "reference": "0f538ec39521b99a454269edb7e6cc14869bd87b"
+                "url": "https://github.com/plugandpay/tbc-credit-card-payment-gateway-php-lib.git",
+                "reference": "63de9ba40a27e1f5c6e53f610fea5453eedd0062"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wearede/tbcpay-php/zipball/0f538ec39521b99a454269edb7e6cc14869bd87b",
-                "reference": "0f538ec39521b99a454269edb7e6cc14869bd87b",
+                "url": "https://api.github.com/repos/plugandpay/tbc-credit-card-payment-gateway-php-lib/zipball/63de9ba40a27e1f5c6e53f610fea5453eedd0062",
+                "reference": "63de9ba40a27e1f5c6e53f610fea5453eedd0062",
                 "shasum": ""
             },
             "require": {
@@ -97,7 +97,7 @@
                 }
             ],
             "description": "online payments php SDK - collect credit card payments via TbcBank processor",
-            "time": "2017-03-08 06:11:52"
+            "time": "2018-06-28 08:17:29"
         }
     ],
     "packages-dev": [],
