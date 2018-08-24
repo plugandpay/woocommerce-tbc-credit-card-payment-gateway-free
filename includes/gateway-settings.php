@@ -5,20 +5,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Settings for Tbc Gateway
+ * Settings for TBC Gateway
  */
 return array(
 	'enabled' => array(
 		'title'   => __( 'Enable/Disable', 'woo-tbc' ),
 		'type'    => 'checkbox',
-		'label'   => __( 'Enable Tbc', 'woo-tbc' ),
+		'label'   => __( 'Enable TBC', 'woo-tbc' ),
 		'default' => 'yes',
 	),
 	'title' => array(
 		'title'       => __( 'Title', 'woo-tbc' ),
 		'type'        => 'text',
 		'description' => __( 'This controls the title which the user sees during checkout.', 'woo-tbc' ),
-		'default'     => __( 'Tbc', 'woo-tbc' ),
+		'default'     => __( 'TBC', 'woo-tbc' ),
 		'desc_tip'    => true,
 	),
 	'description' => array(
@@ -26,14 +26,14 @@ return array(
 		'type'        => 'text',
 		'desc_tip'    => true,
 		'description' => __( 'This controls the description which the user sees during checkout.', 'woo-tbc' ),
-		'default'     => __( 'Pay with your credit card via Tbc', 'woo-tbc' ),
+		'default'     => __( 'Pay with your credit card via TBC', 'woo-tbc' ),
 	),
 	'debug' => array(
 		'title'       => __( 'Debug Log', 'woo-tbc' ),
 		'type'        => 'checkbox',
 		'label'       => __( 'Enable logging', 'woo-tbc' ),
 		'default'     => 'no',
-		'description' => sprintf( __( 'Log Tbc events, such as IPN requests, inside <code>%s</code>', 'woo-tbc' ), wc_get_log_file_path( 'tbc' ) ),
+		'description' => sprintf( __( 'Log TBC events, such as IPN requests, inside <code>%s</code>', 'woo-tbc' ), wc_get_log_file_path( 'tbc' ) ),
 	),
 	'cert_path' => array(
 		'title'       => __( 'Certificate path', 'woo-tbc' ),

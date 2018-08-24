@@ -76,7 +76,7 @@ function init_woo_gateway_tbc() {
 		function __construct() {
 			$this->id                 = 'tbc';
 			$this->has_fields         = false;
-			$this->order_button_text  = __( 'Proceed to Tbc', 'woo-tbc' );
+			$this->order_button_text  = __( 'Proceed to TBC', 'woo-tbc' );
 			$this->method_title       = __( 'TBC (Free)', 'woo-tbc' );
 			$this->method_description = __( 'Accept Visa/Mastercard payments in your WooCommerce shop using TBC gateway.', 'woo-tbc' );
 			$this->supports           = array(
