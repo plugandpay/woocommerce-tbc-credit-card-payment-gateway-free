@@ -46,15 +46,21 @@ return array(
 		'type'        => 'text',
 	),
 	'ok_slug' => array(
-		'title'       => __( 'Ok slug', 'woo-tbc' ),
+		'title'       => __( 'Ok', 'woo-tbc' ),
 		'type'        => 'text',
-		'description' => sprintf( __( 'User is redirected here after payment, full url looks like this: <code>%s</code>', 'woo-tbc' ), get_bloginfo( 'url' ) . '/wc-api/ok_slug' ),
-		'default'     => __( 'ok', 'woo-tbc' ),
+		'description' => sprintf( __( '<code>%1$s/wc-api/%2$s</code> - communicate this OK url to TBC', 'woo-tbc' ), get_bloginfo( 'url' ), $this->get_option( 'ok_slug', 'tbcfree/ok' ) ),
+		'default'     => __( 'tbcfree/ok', 'woo-tbc' ),
+		'custom_attributes' => array(
+			'readonly' => 'readonly',
+		),
 	),
 	'fail_slug' => array(
-		'title'       => __( 'Fail slug', 'woo-tbc' ),
+		'title'       => __( 'Fail', 'woo-tbc' ),
 		'type'        => 'text',
-		'description' => sprintf( __( 'User is redirected here if there was a technical error during payment, full url looks like this: <code>%s</code>', 'woo-tbc' ), get_bloginfo( 'url' ) . '/wc-api/fail_slug' ),
-		'default'     => __( 'fail', 'woo-tbc' ),
+		'description' => sprintf( __( '<code>%1$s/wc-api/%2$s</code> - communicate this FAIL url to TBC', 'woo-tbc' ), get_bloginfo( 'url' ), $this->get_option( 'fail_slug', 'tbcfree/fail' ) ),
+		'default'     => __( 'tbcfree/fail', 'woo-tbc' ),
+		'custom_attributes' => array(
+			'readonly' => 'readonly',
+		),
 	),
 );
