@@ -38,11 +38,12 @@ For help setting up and configuring this plugin please refer to our [documentati
 
 == Screenshots ==
 
-1. New payment option appears on checkout page
-2. User is redirected to Tbc form
-3. Completed order via Tbc payment gateway
-4. Failed order via Tbc payment gateway
-5. Plugin settings page
+1. New gateway appears on the WooCommerce -> Settings -> Payments options page
+2. TBC gateway options
+3. New gateway appears on the checkout page
+4. User is redirected to the TBC form
+5. Completed order via TBC payment gateway
+6. Failed order via TBC payment gateway
 
 == Changelog ==
 
