@@ -35,6 +35,18 @@ return array(
 		'default'     => 'no',
 		'description' => sprintf( __( 'Log TBC events, such as IPN requests, inside <code>%s</code>', 'woo-tbc' ), wc_get_log_file_path( 'tbc' ) ),
 	),
+	'merchant_host' => array(
+		'title'       => __( 'Merchant host', 'woo-tbc' ),
+		'type'        => 'select',
+		'class'       => 'wc-enhanced-select',
+		'description' => __( 'TBC merchants registered before June 2018 must use Securepay (default) host, newer merchant accounts must use Ecommerce.', 'woo-tbc' ),
+		'default'     => 'securepay',
+		'desc_tip'    => true,
+		'options'     => array(
+			'securepay' => __( 'Securepay', 'woo-tbc' ),
+			'ecommerce' => __( 'Ecommerce', 'woo-tbc' ),
+		),
+	),
 	'cert_path' => array(
 		'title'       => __( 'Certificate path', 'woo-tbc' ),
 		'type'        => 'text',

@@ -83,8 +83,6 @@ function init_woo_gateway_tbc() {
 				'products',
 			);
 
-			$this->payment_form_url = '/wc-api/redirect_to_payment_form?transaction_id=%s';
-
 			$this->init_form_fields();
 			$this->init_settings();
 
@@ -107,7 +105,8 @@ function init_woo_gateway_tbc() {
 			add_action( 'woocommerce_api_is_wearede', array( $this, 'is_wearede_plugin' ) );
 			add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 
-			$this->Tbc = new TbcPayProcessor( $this->cert_path, $this->cert_pass, $_SERVER['REMOTE_ADDR'] );
+			$this->Tbc             = new TbcPayProcessor( $this->cert_path, $this->cert_pass, $_SERVER['REMOTE_ADDR'] );
+			$this->Tbc->submit_url = sprintf( 'https://%s.ufc.ge:18443/ecomm2/MerchantHandler', $this->get_option( 'merchant_host' ) );
 		}
 
 		/**
@@ -318,13 +317,11 @@ function init_woo_gateway_tbc() {
 		/**
 		 * Create payment form url
 		 *
-		 * Add transaction_id to payment_form_url
-		 *
 		 * @param  string $trans_id
 		 * @return string
 		 */
 		public function get_payment_form_url( $trans_id ) {
-			return sprintf( $this->payment_form_url, rawurlencode($trans_id) );
+			return sprintf( '%s/wc-api/redirect_to_payment_form?merchant_host=%s&transaction_id=%s', get_bloginfo( 'url' ), $this->get_option( 'merchant_host' ), rawurlencode( $trans_id ) );
 		}
 
 		/**
@@ -334,7 +331,7 @@ function init_woo_gateway_tbc() {
 
 			<html>
 				<head>
-					<title><?php $this->title; ?></title>
+					<title>TBC</title>
 					<script type="text/javascript" language="javascript">
 						function redirect() {
 							document.returnform.submit();
@@ -343,7 +340,7 @@ function init_woo_gateway_tbc() {
 				</head>
 
 				<body onLoad="javascript:redirect()">
-					<form name="returnform" action="https://securepay.ufc.ge/ecomm2/ClientHandler" method="POST">
+					<form name="returnform" action="<?php echo sprintf( 'https://%s.ufc.ge/ecomm2/ClientHandler', $_GET['merchant_host'] ); ?>" method="POST">
 						<input type="hidden" name="trans_id" value="<?php echo rawurldecode( $_GET['transaction_id'] ); ?>">
 
 						<noscript>
