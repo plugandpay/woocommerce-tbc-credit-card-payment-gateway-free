@@ -3,7 +3,7 @@ Contributors: plugandpay
 Tags: WooCommerce, GEL, TBC, gateway, bank gateway, credit card gateway, payment, Georgia
 Requires at least: 4.0
 Tested up to: 4.9.8
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,6 +46,10 @@ For help setting up and configuring this plugin please refer to our [documentati
 6. Failed order via TBC payment gateway
 
 == Changelog ==
+
+= 1.0.3 =
+feat: Merchant host option (securepay, ecommerce)
+refactor: Improve ok/fail inputs
 
 = 1.0.2 =
 * Updated compser dependencies
