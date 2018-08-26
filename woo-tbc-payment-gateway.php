@@ -20,7 +20,7 @@
  * @package     WooCommerce TBC Credit Card Payment Gateway (Free)
  * @author      Plug and Pay Ltd. https://plugandpay.ge/
  * @copyright   Copyright (c) Plug and Pay Ltd. (support@plugandpay.ge)
- * @since       1.0.3
+ * @since       1.0.0
  * @license     http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0
  */
 
