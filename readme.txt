@@ -1,5 +1,5 @@
 === WooCommerce TBC Credit Card Payment Gateway (Free) ===
-Contributors: plugandpay
+Contributors: sandrodz, plugandpay
 Tags: WooCommerce, GEL, TBC, gateway, bank gateway, credit card gateway, payment, Georgia
 Requires at least: 4.0
 Tested up to: 4.9.8
