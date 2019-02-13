@@ -1,18 +1,5 @@
 <?php
 /**
- * Plugin Name: WooCommerce TBC Credit Card Payment Gateway (Free)
- * Plugin URI:  https://plugandpay.ge/product/woocommerce-tbc-credit-card-payment-gateway-v1/
- * Description: Accept Visa/Mastercard payments in your WooCommerce shop using TBC gateway.
- * Version:     1.0.3
- * Author:      Plug and Pay Ltd.
- * Author URI:  https://plugandpay.ge/
- * License:     GPL2
- * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Domain Path: /languages
- * Text Domain: woo-tbc
- * WC requires at least: 3.0.0
- * WC tested up to: 3.4.4
-
  * Intellectual Property rights, and copyright, reserved by Plug and Pay, Ltd. as allowed by law include,
  * but are not limited to, the working concept, function, and behavior of this software,
  * the logical code structure and expression as written.
@@ -28,35 +15,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// Composer autoload.
-require __DIR__ . '/vendor/autoload.php';
-
 use WeAreDe\TbcPay\TbcPayProcessor;
 
-/**
- * Register the payment gateway.
- *
- * @since 1.0.0
- * @param array $gateways Payment gateways.
- */
-function add_woo_gateway_tbc_class( $gateways ) {
-	$gateways[] = 'WC_Gateway_TBC';
-	return $gateways;
-}
-add_filter( 'woocommerce_payment_gateways', 'add_woo_gateway_tbc_class' );
-
-/**
- * Initialize class on plugins_loaded.
- */
-function init_woo_gateway_tbc() {
-
 	/**
-	 * Tbc credit card payment gateway class
+	 * TBC (Free) credit card payment gateway class.
 	 *
-	 * @class   WC_Gateway_TBC
-	 * @extends WC_Payment_Gateway
+	 * @class   \PlugandPay_WC_TBC_Credit_Card_Free_Gateway
+	 * @extends \WC_Payment_Gateway
 	 */
-	class WC_Gateway_TBC extends WC_Payment_Gateway {
+	class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 
 		/**
 		 * @var boolean Enabled or disable logging
@@ -74,11 +41,11 @@ function init_woo_gateway_tbc() {
 		 * Constructor.
 		 */
 		function __construct() {
-			$this->id                 = 'tbc';
+			$this->id                 = 'tbc_credit_card_free_gateway';
 			$this->has_fields         = false;
-			$this->order_button_text  = __( 'Proceed to TBC', 'woo-tbc' );
-			$this->method_title       = __( 'TBC (Free)', 'woo-tbc' );
-			$this->method_description = __( 'Accept Visa/Mastercard payments in your WooCommerce shop using TBC gateway.', 'woo-tbc' );
+			$this->order_button_text  = __( 'Proceed to TBC', 'tbc-gateway-free' );
+			$this->method_title       = __( 'TBC (Free)', 'tbc-gateway-free' );
+			$this->method_description = __( 'Accept Visa/Mastercard payments in your WooCommerce shop using TBC gateway.', 'tbc-gateway-free' );
 			$this->supports           = array(
 				'products',
 			);
@@ -102,7 +69,6 @@ function init_woo_gateway_tbc() {
 			add_action( 'woocommerce_api_' . $this->ok_slug, array( $this, 'return_from_payment_form_ok' ) );
 			add_action( 'woocommerce_api_' . $this->fail_slug, array( $this, 'return_from_payment_form_fail' ) );
 			add_action( 'woocommerce_api_close_business_day', array( $this, 'close_business_day' ) );
-			add_action( 'woocommerce_api_is_wearede', array( $this, 'is_wearede_plugin' ) );
 			add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 
 			$this->Tbc             = new TbcPayProcessor( $this->cert_path, $this->cert_pass, $_SERVER['REMOTE_ADDR'] );
@@ -122,7 +88,7 @@ function init_woo_gateway_tbc() {
 				if ( empty( self::$log ) ) {
 					self::$log = new WC_Logger();
 				}
-				self::$log->add( 'tbc', $message );
+				self::$log->add( 'tbc_credit_card_free_gateway', $message );
 			}
 		}
 
@@ -130,7 +96,7 @@ function init_woo_gateway_tbc() {
 		 * Initialise gateway settings
 		 */
 		public function init_form_fields() {
-			$this->form_fields = include( 'includes/gateway-settings.php' );
+			$this->form_fields = include 'settings/gateway.php';
 		}
 
 		/**
@@ -150,11 +116,11 @@ function init_woo_gateway_tbc() {
 
 			// Check for required parameters
 			if ( ! $this->cert_path ) {
-				echo '<div class="error"><p>' . sprintf( __( 'Tbc error: Please enter certificate path <a href="%s">here</a>', 'woo-tbc' ), admin_url( 'admin.php?page=wc-settings&tab=checkout&section=wc_gateway_tbc') ) . '</p></div>';
+				echo '<div class="error"><p>' . sprintf( __( 'Tbc error: Please enter certificate path <a href="%s">here</a>', 'tbc-gateway-free' ), admin_url( 'admin.php?page=wc-settings&tab=checkout&section=tbc_credit_card_free_gateway' ) ) . '</p></div>';
 			}
 
 			if ( ! $this->cert_pass ) {
-				echo '<div class="error"><p>' . sprintf( __( 'Tbc error: Please enter certificate passphrase <a href="%s">here</a>', 'woo-tbc' ), admin_url( 'admin.php?page=wc-settings&tab=checkout&section=wc_gateway_tbc') ) . '</p></div>';
+				echo '<div class="error"><p>' . sprintf( __( 'Tbc error: Please enter certificate passphrase <a href="%s">here</a>', 'tbc-gateway-free' ), admin_url( 'admin.php?page=wc-settings&tab=checkout&section=tbc_credit_card_free_gateway' ) ) . '</p></div>';
 			}
 		}
 
@@ -190,11 +156,11 @@ function init_woo_gateway_tbc() {
 			// Special data transformation for Tbc API
 			$this->Tbc->amount      = $amount * 100;
 			$this->Tbc->currency    = $this->get_iso4217_number( $currency );
-			$this->Tbc->description = sprintf( __( '%s - Order %s', 'woo-tbc' ), wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES ), $order->get_id() );
+			$this->Tbc->description = sprintf( __( '%s - Order %s', 'tbc-gateway-free' ), wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES ), $order->get_id() );
 			$this->Tbc->language    = strtoupper( substr( get_bloginfo('language'), 0, -3 ) );
 
 			// Log order details
-			$this->log( sprintf( __( 'Info ~ Order id: %s - amount: %s (%s) %s (%s), language: %s.', 'woo-tbc' ), $order->get_id(), $amount, $this->Tbc->amount, $currency, $this->Tbc->currency, $this->Tbc->language ) );
+			$this->log( sprintf( __( 'Info ~ Order id: %s - amount: %s (%s) %s (%s), language: %s.', 'tbc-gateway-free' ), $order->get_id(), $amount, $this->Tbc->amount, $currency, $this->Tbc->currency, $this->Tbc->language ) );
 
 			// init contact with Tbc
 			try {
@@ -204,12 +170,12 @@ function init_woo_gateway_tbc() {
 				} else {
 					if ( isset($start['error']) ) {
 						// Log returned error
-						$this->log( sprintf( __( 'Error ~ Order id: %s - Error msg: %s.', 'woo-tbc' ), $order->get_id(), $start['error'] ) );
+						$this->log( sprintf( __( 'Error ~ Order id: %s - Error msg: %s.', 'tbc-gateway-free' ), $order->get_id(), $start['error'] ) );
 					} else {
 						// Log generic error
-						$this->log( sprintf( __( 'Error ~ Order id: %s - no TRANSACTION_ID from Tbc.', 'woo-tbc' ), $order->get_id() ) );
+						$this->log( sprintf( __( 'Error ~ Order id: %s - no TRANSACTION_ID from Tbc.', 'tbc-gateway-free' ), $order->get_id() ) );
 					}
-					throw new Exception( __( 'Tbc did not return TRANSACTION_ID.', 'woo-tbc' ) );
+					throw new Exception( __( 'Tbc did not return TRANSACTION_ID.', 'tbc-gateway-free' ) );
 				}
 			} catch ( Exception $e ) {
 				// Add private note to order details
@@ -221,16 +187,16 @@ function init_woo_gateway_tbc() {
 				);
 			}
 
-			$this->log( sprintf( __( 'Success ~ Order id: %s -> transaction id: %s obtained successfully', 'woo-tbc' ), $order->get_id(), $trans_id ) );
+			$this->log( sprintf( __( 'Success ~ Order id: %s -> transaction id: %s obtained successfully', 'tbc-gateway-free' ), $order->get_id(), $trans_id ) );
 
 			// Save trans_id for reference
 			update_post_meta( $order->get_id(), '_transaction_id', $trans_id );
 
-			$this->log( sprintf( __( 'Info ~ Order id: %s, redirecting user to Tbc gateway', 'woo-tbc' ), $order->get_id() ) );
+			$this->log( sprintf( __( 'Info ~ Order id: %s, redirecting user to Tbc gateway', 'tbc-gateway-free' ), $order->get_id() ) );
 
 			return array(
 				'result'   => 'success',
-				'messages' => __( 'Success! redirecting to Tbc now ...', 'woo-tbc' ),
+				'messages' => __( 'Success! redirecting to Tbc now ...', 'tbc-gateway-free' ),
 				// Redirect user to tbc payment form
 				'redirect' => $this->get_payment_form_url( $trans_id ),
 			);
@@ -249,21 +215,21 @@ function init_woo_gateway_tbc() {
 
 			try {
 				if ( ! isset($_REQUEST['trans_id']) ) {
-					$this->log( __( 'Error ~ Tbc did not return trans_id in $_REQUEST on OK page', 'woo-tbc' ) );
-					throw new Exception( __( 'Tbc did not return transaction id!', 'woo-tbc' ) );
+					$this->log( __( 'Error ~ Tbc did not return trans_id in $_REQUEST on OK page', 'tbc-gateway-free' ) );
+					throw new Exception( __( 'Tbc did not return transaction id!', 'tbc-gateway-free' ) );
 				}
 				$trans_id = $_REQUEST['trans_id'];
 
 				$order_id = $this->get_order_id_by_transaction_id( $trans_id );
 				if ( ! $order_id ) {
-					$this->log( sprintf( __( 'Error ~ could not find order id associated with transaction id: %s', 'woo-tbc' ), $trans_id ) );
-					throw new Exception( __( 'We could not find your order id!', 'woo-tbc' ) );
+					$this->log( sprintf( __( 'Error ~ could not find order id associated with transaction id: %s', 'tbc-gateway-free' ), $trans_id ) );
+					throw new Exception( __( 'We could not find your order id!', 'tbc-gateway-free' ) );
 				}
 
 				$order = wc_get_order( $order_id );
 				if ( ! $order ) {
-					$this->log( sprintf( __( 'Error ~ could not find order associated with order id: %s', 'woo-tbc' ), $order_id ) );
-					throw new Exception( __( 'We could not find your order!', 'woo-tbc' ) );
+					$this->log( sprintf( __( 'Error ~ could not find order associated with order id: %s', 'tbc-gateway-free' ), $order_id ) );
+					throw new Exception( __( 'We could not find your order!', 'tbc-gateway-free' ) );
 				}
 			} catch ( Exception $e ) {
 				wc_add_notice( $e->getMessage(), 'error' );
@@ -274,8 +240,8 @@ function init_woo_gateway_tbc() {
 			try {
 				$transaction = $this->Tbc->get_transaction_result( $trans_id );
 				if ( ! isset($transaction['RESULT']) || $transaction['RESULT'] != 'OK' ) {
-					$this->log( sprintf( __( 'Error ~ could not verify transaction result, Tbc did not return OK: %s', 'woo-tbc' ), json_encode( $transaction ) ) );
-					throw new Exception( __( 'We could not verify transaction result, logs should contain more information about this failure.', 'woo-tbc' ) );
+					$this->log( sprintf( __( 'Error ~ could not verify transaction result, Tbc did not return OK: %s', 'tbc-gateway-free' ), json_encode( $transaction ) ) );
+					throw new Exception( __( 'We could not verify transaction result, logs should contain more information about this failure.', 'tbc-gateway-free' ) );
 				}
 			} catch ( Exception $e ) {
 				// Add private note to order details
@@ -290,9 +256,9 @@ function init_woo_gateway_tbc() {
 			$order->payment_complete();
 
 			// Add order note
-			$complete_message = __( 'Tbc charge complete', 'woo-tbc' );
+			$complete_message = __( 'Tbc charge complete', 'tbc-gateway-free' );
 			$order->add_order_note( $complete_message );
-			$this->log( sprintf( __( 'Success ~ %s, transaction id: %s, order id: %s', 'woo-tbc' ), $complete_message, $trans_id, $order_id ) );
+			$this->log( sprintf( __( 'Success ~ %s, transaction id: %s, order id: %s', 'tbc-gateway-free' ), $complete_message, $trans_id, $order_id ) );
 
 			// Remove cart
 			WC()->cart->empty_cart();
@@ -309,8 +275,8 @@ function init_woo_gateway_tbc() {
 		 * this can be improved by logging logged in user details
 		 */
 		public function return_from_payment_form_fail() {
-			$error = __( 'Technical faulure in ECOMM system', 'woo-tbc' );
-			$this->log( sprintf( __( 'Error ~ %s', 'woo-tbc' ), $error ) );
+			$error = __( 'Technical faulure in ECOMM system', 'tbc-gateway-free' );
+			$this->log( sprintf( __( 'Error ~ %s', 'tbc-gateway-free' ), $error ) );
 			wp_die( $error );
 		}
 
@@ -345,7 +311,7 @@ function init_woo_gateway_tbc() {
 
 						<noscript>
 							<center>
-								<?php _e( 'Please click the submit button below.', 'woo-tbc' ); ?><br>
+								<?php _e( 'Please click the submit button below.', 'tbc-gateway-free' ); ?><br>
 								<input type="submit" name="submit" value="Submit">
 							</center>
 						</noscript>
@@ -355,14 +321,6 @@ function init_woo_gateway_tbc() {
 			</html>
 
 		<?php exit(); }
-
-		/**
-		 * Used for troubleshooting
-		 */
-		public function is_wearede_plugin() {
-			echo json_encode( array( 'status' => 'true', 'version' => '1.0.3' ) );
-			exit();
-		}
 
 		/**
 		 * Add gateway data to (edit) order page
@@ -379,7 +337,7 @@ function init_woo_gateway_tbc() {
 				<h4><?php _e( 'Tbc' ); ?></h4>
 				<?php
 
-					echo '<p><strong>' . __( 'Transaction id', 'woo-tbc' ) . ':</strong>' . get_post_meta( $order->get_id(), '_transaction_id', true ) . '</p>';
+					echo '<p><strong>' . __( 'Transaction id', 'tbc-gateway-free' ) . ':</strong>' . get_post_meta( $order->get_id(), '_transaction_id', true ) . '</p>';
 
 				?>
 			</div>
@@ -431,5 +389,3 @@ function init_woo_gateway_tbc() {
 
 	}
 
-}
-add_action( 'plugins_loaded', 'init_woo_gateway_tbc' );

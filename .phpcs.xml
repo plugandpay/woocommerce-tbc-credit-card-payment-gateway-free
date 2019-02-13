@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="woocommerce-tbc-credit-card-payment-gateway-free">
+<ruleset name="plugandpay-woocommerce-tbc-credit-card-payment-gateway-free">
 	<description>A custom set of rules to check for a WPized WordPress project</description>
 
 	<!-- Exclude WP Core folders and files from being checked. -->
@@ -73,7 +73,7 @@
 
 	<rule ref="WordPress.WP.I18n">
 		<properties>
-			<property name="text_domain" type="array" value="woo-tbc,woocommerce"/>
+			<property name="text_domain" type="array" value="tbc-gateway-free,woocommerce"/>
 		</properties>
 	</rule>
 

@@ -1,5 +1,5 @@
 {
-    "name": "plugandpay/woocommerce-tbc-credit-card-payment-gateway-free",
+    "name": "plugandpay/plugandpay-woocommerce-tbc-credit-card-payment-gateway-free",
     "type": "wordpress-plugin",
     "license": "http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0",
     "authors": [
@@ -8,6 +8,11 @@
             "email": "support@plugandpay.ge"
         }
     ],
+    "autoload": {
+        "classmap": [
+            "includes/"
+        ]
+    },
     "require": {
         "wearede/tbcpay-php": "^0.9",
         "alcohol/iso4217": "^3.1"
