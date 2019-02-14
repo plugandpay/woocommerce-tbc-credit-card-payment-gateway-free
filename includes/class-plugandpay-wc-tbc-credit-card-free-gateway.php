@@ -26,21 +26,25 @@ use WeAreDe\TbcPay\TbcPayProcessor;
 class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 
 	/**
-	 * @var boolean Enabled or disable logging
-	 * @static
+	 * Whether or not logging is enabled.
+	 *
+	 * @since 1.0.0
+	 * @var bool
 	 */
 	public static $log_enabled = false;
 
 	/**
-	 * @var boolean WC_Logger instance
-	 * @static
+	 * Logger instance.
+	 *
+	 * @since 1.0.0
+	 * @var WC_Logger|false
 	 */
 	public static $log = false;
 
 	/**
 	 * Constructor.
 	 */
-	function __construct() {
+	public function __construct() {
 		$this->id                 = 'tbc_credit_card_free_gateway';
 		$this->has_fields         = false;
 		$this->order_button_text  = __( 'Proceed to TBC', 'tbc-gateway-free' );
