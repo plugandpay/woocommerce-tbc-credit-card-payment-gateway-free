@@ -345,13 +345,13 @@ use WeAreDe\TbcPay\TbcPayProcessor;
 		<?php }
 
 		/**
-		 * Close business day
+		 * Close business day, needs to run via cron every 24h.
 		 *
-		 * Required by gateway
-		 * must run every 24 hours via cron
+		 * @since 1.0.0
 		 */
 		public function close_business_day() {
-			print_r( $this->Tbc->close_day() );
+			$result = $this->Tbc->close_day();
+			$this->log( sprintf( 'Info ~ close business day result: %s', json_encode( $result ) ) );
 			exit();
 		}
 
