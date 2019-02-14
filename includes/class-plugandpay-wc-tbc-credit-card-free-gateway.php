@@ -64,7 +64,6 @@ use WeAreDe\TbcPay\TbcPayProcessor;
 			self::$log_enabled = $this->debug;
 
 			add_action( 'admin_notices', array( $this, 'admin_notices' ) );
-			add_action( 'woocommerce_admin_order_data_after_order_details', array( $this, 'order_details' ) );
 			add_action( 'woocommerce_api_redirect_to_payment_form', array( $this, 'redirect_to_payment_form' ) );
 			add_action( 'woocommerce_api_' . $this->ok_slug, array( $this, 'return_from_payment_form_ok' ) );
 			add_action( 'woocommerce_api_' . $this->fail_slug, array( $this, 'return_from_payment_form_fail' ) );
@@ -321,28 +320,6 @@ use WeAreDe\TbcPay\TbcPayProcessor;
 			</html>
 
 		<?php exit(); }
-
-		/**
-		 * Add gateway data to (edit) order page
-		 *
-		 * This is redundant because woo already displays _transaction_id in the order description
-		 * e.g. "Payment via {gateway} ({_transaction_id}). Customer IP: {ip}"
-		 * but we can use it for other things in the future.
-		 *
-		 * @param object $order
-		 */
-		public function order_details( $order ) { ?>
-
-			<div class="order_data_column">
-				<h4><?php _e( 'Tbc' ); ?></h4>
-				<?php
-
-					echo '<p><strong>' . __( 'Transaction id', 'tbc-gateway-free' ) . ':</strong>' . get_post_meta( $order->get_id(), '_transaction_id', true ) . '</p>';
-
-				?>
-			</div>
-
-		<?php }
 
 		/**
 		 * Close business day, needs to run via cron every 24h.
