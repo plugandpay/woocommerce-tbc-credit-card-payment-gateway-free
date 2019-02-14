@@ -70,8 +70,8 @@ use WeAreDe\TbcPay\TbcPayProcessor;
 			add_action( 'woocommerce_api_close_business_day', array( $this, 'close_business_day' ) );
 			add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 
-			$this->Tbc             = new TbcPayProcessor( $this->cert_path, $this->cert_pass, $_SERVER['REMOTE_ADDR'] );
-			$this->Tbc->submit_url = sprintf( 'https://%s.ufc.ge:18443/ecomm2/MerchantHandler', $this->get_option( 'merchant_host' ) );
+			$this->tbc             = new TbcPayProcessor( $this->cert_path, $this->cert_pass, $_SERVER['REMOTE_ADDR'] );
+			$this->tbc->submit_url = sprintf( 'https://%s.ufc.ge:18443/ecomm2/MerchantHandler', $this->get_option( 'merchant_host' ) );
 		}
 
 		/**
@@ -153,17 +153,17 @@ use WeAreDe\TbcPay\TbcPayProcessor;
 			$amount   = $order->get_total();
 
 			// Special data transformation for Tbc API
-			$this->Tbc->amount      = $amount * 100;
-			$this->Tbc->currency    = $this->get_iso4217_number( $currency );
-			$this->Tbc->description = sprintf( __( '%s - Order %s', 'tbc-gateway-free' ), wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES ), $order->get_id() );
-			$this->Tbc->language    = strtoupper( substr( get_bloginfo('language'), 0, -3 ) );
+			$this->tbc->amount      = $amount * 100;
+			$this->tbc->currency    = $this->get_iso4217_number( $currency );
+			$this->tbc->description = sprintf( __( '%s - Order %s', 'tbc-gateway-free' ), wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES ), $order->get_id() );
+			$this->tbc->language    = strtoupper( substr( get_bloginfo('language'), 0, -3 ) );
 
 			// Log order details
-			$this->log( sprintf( __( 'Info ~ Order id: %s - amount: %s (%s) %s (%s), language: %s.', 'tbc-gateway-free' ), $order->get_id(), $amount, $this->Tbc->amount, $currency, $this->Tbc->currency, $this->Tbc->language ) );
+			$this->log( sprintf( __( 'Info ~ Order id: %s - amount: %s (%s) %s (%s), language: %s.', 'tbc-gateway-free' ), $order->get_id(), $amount, $this->tbc->amount, $currency, $this->tbc->currency, $this->tbc->language ) );
 
 			// init contact with Tbc
 			try {
-				$start = $this->Tbc->sms_start_transaction();
+				$start = $this->tbc->sms_start_transaction();
 				if ( ! isset($start['error']) && isset($start['TRANSACTION_ID']) ) {
 					$trans_id = $start['TRANSACTION_ID'];
 				} else {
@@ -237,7 +237,7 @@ use WeAreDe\TbcPay\TbcPayProcessor;
 			}
 
 			try {
-				$transaction = $this->Tbc->get_transaction_result( $trans_id );
+				$transaction = $this->tbc->get_transaction_result( $trans_id );
 				if ( ! isset($transaction['RESULT']) || $transaction['RESULT'] != 'OK' ) {
 					$this->log( sprintf( __( 'Error ~ could not verify transaction result, Tbc did not return OK: %s', 'tbc-gateway-free' ), json_encode( $transaction ) ) );
 					throw new Exception( __( 'We could not verify transaction result, logs should contain more information about this failure.', 'tbc-gateway-free' ) );
@@ -327,7 +327,7 @@ use WeAreDe\TbcPay\TbcPayProcessor;
 		 * @since 1.0.0
 		 */
 		public function close_business_day() {
-			$result = $this->Tbc->close_day();
+			$result = $this->tbc->close_day();
 			$this->log( sprintf( 'Info ~ close business day result: %s', json_encode( $result ) ) );
 			exit();
 		}
