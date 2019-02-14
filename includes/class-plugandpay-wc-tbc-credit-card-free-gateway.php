@@ -268,21 +268,21 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 	}
 
 	/**
-	 * FAIL endpoint
+	 * FAIL endpoint.
 	 *
-	 * Landing page for customers returning from Tbc after technical failure
-	 * this can be improved by logging logged in user details
+	 * @since 1.0.0
 	 */
 	public function return_from_payment_form_fail() {
 		$error = __( 'Technical faulure in ECOMM system', 'tbc-gateway-free' );
-		$this->log( sprintf( __( 'Error ~ %s', 'tbc-gateway-free' ), $error ) );
-		wp_die( $error );
+		$this->log( sprintf( 'Error ~ %s', $error ) );
+		wp_die( esc_html( $error ) );
 	}
 
 	/**
-	 * Create payment form url
+	 * Create payment form url.
 	 *
-	 * @param  string $trans_id
+	 * @since 1.0.0
+	 * @param string $trans_id Transaction id from gateway.
 	 * @return string
 	 */
 	public function get_payment_form_url( $trans_id ) {
@@ -290,9 +290,12 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 	}
 
 	/**
-	 * Redirect user to Tbc payment page
+	 * Redirect user to TBC payment page.
+	 *
+	 * @since 1.0.0
 	 */
-	public function redirect_to_payment_form() { ?>
+	public function redirect_to_payment_form() {
+		?>
 
 		<html>
 			<head>
@@ -305,12 +308,12 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 			</head>
 
 			<body onLoad="javascript:redirect()">
-				<form name="returnform" action="<?php echo sprintf( 'https://%s.ufc.ge/ecomm2/ClientHandler', $_GET['merchant_host'] ); ?>" method="POST">
+				<form name="returnform" action="<?php echo esc_url( sprintf( 'https://%s.ufc.ge/ecomm2/ClientHandler', $_GET['merchant_host'] ) ); ?>" method="POST">
 					<input type="hidden" name="trans_id" value="<?php echo rawurldecode( $_GET['transaction_id'] ); ?>">
 
 					<noscript>
 						<center>
-							<?php _e( 'Please click the submit button below.', 'tbc-gateway-free' ); ?><br>
+							<?php esc_html_e( 'Please click the submit button below.', 'tbc-gateway-free' ); ?><br>
 							<input type="submit" name="submit" value="Submit">
 						</center>
 					</noscript>
@@ -319,7 +322,9 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 
 		</html>
 
-	<?php exit(); }
+		<?php
+		exit();
+	}
 
 	/**
 	 * Close business day, needs to run via cron every 24h.
@@ -335,6 +340,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 	/**
 	 * Get order id by transaction id.
 	 *
+	 * @since 1.0.0
 	 * @param string $trans_id Transaction id from gateway.
 	 * @return string
 	 */
@@ -357,7 +363,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 			$meta = $meta[0];
 		}
 
-		if ( is_object( $meta) ) {
+		if ( is_object( $meta ) ) {
 			return $meta->post_id;
 		}
 
