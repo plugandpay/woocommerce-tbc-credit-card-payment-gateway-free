@@ -333,10 +333,10 @@ use WeAreDe\TbcPay\TbcPayProcessor;
 		}
 
 		/**
-		 * Get order id by transaction id
+		 * Get order id by transaction id.
 		 *
-		 * @param  string $trans_id
-		 * @return string $order_id
+		 * @param string $trans_id Transaction id from gateway.
+		 * @return string
 		 */
 		public function get_order_id_by_transaction_id( $trans_id ) {
 			global $wpdb;
@@ -353,11 +353,11 @@ use WeAreDe\TbcPay\TbcPayProcessor;
 				)
 			);
 
-			if ( ! empty($meta) && is_array($meta) && isset($meta[0]) ) {
+			if ( ! empty( $meta ) && is_array( $meta ) && isset( $meta[0] ) ) {
 				$meta = $meta[0];
 			}
 
-			if ( is_object($meta) ) {
+			if ( is_object( $meta) ) {
 				return $meta->post_id;
 			}
 
