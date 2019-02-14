@@ -79,19 +79,19 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 	}
 
 	/**
-	 * Create a log entry
+	 * Logging method.
 	 *
-	 * @param string $message
-	 * @uses  WC_Gateway_TBC::$log_enabled
-	 * @uses  WC_Gateway_TBC::$log
-	 * @static
+	 * @since 1.0.0
+	 * @param string $message Log message.
+	 * @param string $level Optional. Default 'info'. Possible values:
+	 *                      emergency|alert|critical|error|warning|notice|info|debug.
 	 */
-	public static function log( $message ) {
+	public static function log( $message, $level = 'info' ) {
 		if ( self::$log_enabled ) {
 			if ( empty( self::$log ) ) {
-				self::$log = new WC_Logger();
+				self::$log = wc_get_logger();
 			}
-			self::$log->add( 'tbc_credit_card_free_gateway', $message );
+			self::$log->log( $level, $message, array( 'source' => 'tbc_credit_card_free_gateway' ) );
 		}
 	}
 
