@@ -7,7 +7,7 @@
  * @package     WooCommerce TBC Credit Card Payment Gateway (Free)
  * @author      Plug and Pay Ltd. https://plugandpay.ge/
  * @copyright   Copyright (c) Plug and Pay Ltd. (support@plugandpay.ge)
- * @since       1.0.4
+ * @since       2.0.0
  * @license     http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0
  */
 
@@ -23,7 +23,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Plugin_Factory {
 	/**
 	 * __FILE__ from the root plugin file.
 	 *
-	 * @since 1.0.4
+	 * @since 2.0.0
 	 * @var string
 	 */
 	public $file;
@@ -31,7 +31,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Plugin_Factory {
 	/**
 	 * The current version of the plugin.
 	 *
-	 * @since 1.0.4
+	 * @since 2.0.0
 	 * @var string
 	 */
 	public $version;
@@ -39,7 +39,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Plugin_Factory {
 	/**
 	 * Extras / misc.
 	 *
-	 * @since 1.0.4
+	 * @since 2.0.0
 	 * @var \PlugandPay_WC_TBC_Credit_Card_Free_Extras|null
 	 */
 	public $extras = null;
@@ -47,7 +47,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Plugin_Factory {
 	/**
 	 * Holds a single instance of this class.
 	 *
-	 * @since 1.0.4
+	 * @since 2.0.0
 	 * @var \PlugandPay_WC_TBC_Credit_Card_Free_Plugin_Factory|null
 	 */
 	protected static $_instance = null;
@@ -55,7 +55,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Plugin_Factory {
 	/**
 	 * Returns a single instance of this class.
 	 *
-	 * @since 1.0.4
+	 * @since 2.0.0
 	 * @param string $file Must be __FILE__ from the root plugin file.
 	 * @param string $software_version Current software version of this plugin.
 	 * @return \PlugandPay_WC_TBC_Credit_Card_Free_Plugin_Factory|null
@@ -70,7 +70,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Plugin_Factory {
 	/**
 	 * Constructor.
 	 *
-	 * @since 1.0.4
+	 * @since 2.0.0
 	 * @param string $file Must be __FILE__ from the root plugin file.
 	 * @param string $software_version Current software version of this plugin.
 	 */
@@ -89,7 +89,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Plugin_Factory {
 	/**
 	 * Create the list of installed (Plug and Pay) plugins.
 	 *
-	 * @since 1.0.4
+	 * @since 2.0.0
 	 */
 	public function list_installed_plugins() {
 		$array = apply_filters( 'plugandpay_installed_plugins', array() );
@@ -101,7 +101,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Plugin_Factory {
 	/**
 	 * Add this plugin to the list of installed (Plug and Pay) plugins.
 	 *
-	 * @since 1.0.4
+	 * @since 2.0.0
 	 * @param array $list Plugandpay installed plugins list.
 	 * @return array
 	 */
@@ -113,7 +113,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Plugin_Factory {
 	/**
 	 * Diagnostic information about this plugin.
 	 *
-	 * @since 1.0.4
+	 * @since 2.0.0
 	 * @return array
 	 */
 	public function whoami() {
@@ -125,14 +125,14 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Plugin_Factory {
 	/**
 	 * Init plugin dependencies.
 	 *
-	 * @since 1.0.4
+	 * @since 2.0.0
 	 */
 	public function init_dependencies() {
 
 		/**
 		 * Extras / misc.
 		 *
-		 * @since 1.0.4
+		 * @since 2.0.0
 		 * @param string $file Must be __FILE__ from the root plugin file.
 		 */
 		$this->extras = new PlugandPay_WC_TBC_Credit_Card_Free_Extras( $this->file );
@@ -142,7 +142,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Plugin_Factory {
 	/**
 	 * Register the payment gateway.
 	 *
-	 * @since 1.0.4
+	 * @since 2.0.0
 	 * @param array $gateways Payment gateways.
 	 */
 	public function register_payment_gateway( $gateways ) {
@@ -153,7 +153,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Plugin_Factory {
 	/**
 	 * Load textdomain.
 	 *
-	 * @since 1.0.4
+	 * @since 2.0.0
 	 */
 	public function load_textdomain() {
 		load_plugin_textdomain( 'tbc-gateway-free', false, dirname( plugin_basename( $this->file ) ) . '/languages' );

@@ -7,7 +7,7 @@
  * @package     WooCommerce TBC Credit Card Payment Gateway (Free)
  * @author      Plug and Pay Ltd. https://plugandpay.ge/
  * @copyright   Copyright (c) Plug and Pay Ltd. (support@plugandpay.ge)
- * @since       1.0.4
+ * @since       2.0.0
  * @license     http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0
  */
 
@@ -23,7 +23,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Extras {
 	/**
 	 * __FILE__ from the root plugin file.
 	 *
-	 * @since 1.0.4
+	 * @since 2.0.0
 	 * @var string
 	 */
 	public $file;
@@ -31,7 +31,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Extras {
 	/**
 	 * Constructor.
 	 *
-	 * @since 1.0.4
+	 * @since 2.0.0
 	 * @param string $file Must be __FILE__ from the root plugin file.
 	 */
 	public function __construct( $file ) {
@@ -44,7 +44,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Extras {
 	/**
 	 * Add PlugandPay logo to the gateway.
 	 *
-	 * @since 1.0.4
+	 * @since 2.0.0
 	 * @param string $icons Html image tags.
 	 * @param string $gateway_id Gateway id.
 	 * @return string
@@ -62,7 +62,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Extras {
 	/**
 	 * Init dashboard widgets.
 	 *
-	 * @since 1.0.4
+	 * @since 2.0.0
 	 */
 	public function init_dashboard_widgets() {
 
@@ -83,7 +83,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Extras {
 	/**
 	 * Products widget.
 	 *
-	 * @since 1.0.4
+	 * @since 2.0.0
 	 */
 	public function display_products_widget() {
 		$this->display_feed( 'https://plugandpay.ge/shop/feed/', [ 'type' => 'products' ] );
@@ -106,7 +106,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Extras {
 	/**
 	 * Blog widget.
 	 *
-	 * @since 1.0.4
+	 * @since 2.0.0
 	 */
 	public function display_blog_widget() {
 		$this->display_feed( 'https://plugandpay.ge/feed/' );
@@ -129,7 +129,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Extras {
 	/**
 	 * Display feed.
 	 *
-	 * @since 1.0.4
+	 * @since 2.0.0
 	 * @param string $url RSS feed url.
 	 * @param array  $args Optional arguments.
 	 */
