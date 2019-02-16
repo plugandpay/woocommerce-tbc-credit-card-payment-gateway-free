@@ -66,16 +66,22 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Extras {
 	 */
 	public function init_dashboard_widgets() {
 
-		wp_add_dashboard_widget(
+		add_meta_box(
 			'plugandpay_products_widget',
 			__( 'Plug and Pay - Products', 'tbc-gateway-free' ),
-			[ $this, 'display_products_widget' ]
+			[ $this, 'display_products_widget' ],
+			'dashboard',
+			'side',
+			'high'
 		);
 
-		wp_add_dashboard_widget(
+		add_meta_box(
 			'plugandpay_blog_widget',
 			__( 'Plug and Pay - Blog', 'tbc-gateway-free' ),
-			[ $this, 'display_blog_widget' ]
+			[ $this, 'display_blog_widget' ],
+			'dashboard',
+			'side',
+			'high'
 		);
 
 	}
