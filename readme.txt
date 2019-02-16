@@ -47,8 +47,8 @@ For help setting up and configuring this plugin please refer to our [documentati
 == Changelog ==
 
 = 1.0.3 =
-feat: Merchant host option (securepay, ecommerce)
-refactor: Improve ok/fail inputs
+* feat: Merchant host option (securepay, ecommerce)
+* refactor: Improve ok/fail inputs
 
 = 1.0.2 =
 * Updated compser dependencies
