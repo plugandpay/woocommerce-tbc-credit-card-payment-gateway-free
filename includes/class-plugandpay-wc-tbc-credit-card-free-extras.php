@@ -227,7 +227,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Extras {
 			?>
 
 			<li class="tbc-gateway-free-report-counter">
-				<a href="https://plugandpay.ge/product/woocommerce-tbc-credit-card-payment-gateway/?utm_source=tbcfree&utm_medium=dashboard&utm_campaign=upgradeNagCounter">
+				<a target="_blank" href="https://plugandpay.ge/product/woocommerce-tbc-credit-card-payment-gateway/?utm_source=tbcfree&utm_medium=dashboard&utm_campaign=upgradeNagCounter">
 					<?php
 						$current = 0;
 						$total   = 10;
@@ -241,7 +241,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Extras {
 			</li>
 
 			<li class="tbc-gateway-free-report-notice">
-				<a href="https://plugandpay.ge/product/woocommerce-tbc-credit-card-payment-gateway/?utm_source=tbcfree&utm_medium=dashboard&utm_campaign=upgradeNagNotice">
+				<a target="_blank" href="https://plugandpay.ge/product/woocommerce-tbc-credit-card-payment-gateway/?utm_source=tbcfree&utm_medium=dashboard&utm_campaign=upgradeNagNotice">
 					<?php
 						esc_html_e( 'Upgrade to TBC Premium plugin and have unlimited monthly transactions.', 'tbc-gateway-free' );
 					?>
