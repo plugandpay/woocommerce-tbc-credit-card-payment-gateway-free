@@ -29,16 +29,28 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Extras {
 	public $file;
 
 	/**
+	 * The current version of the plugin.
+	 *
+	 * @since 2.0.0
+	 * @var string
+	 */
+	public $version;
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 2.0.0
 	 * @param string $file Must be __FILE__ from the root plugin file.
+	 * @param string $software_version Current software version of this plugin.
 	 */
-	public function __construct( $file ) {
-		$this->file = $file;
+	public function __construct( $file, $software_version ) {
+		$this->file    = $file;
+		$this->version = $software_version;
 
 		add_filter( 'woocommerce_gateway_icon', [ $this, 'add_gateway_icons' ], 10, 2 );
 		add_action( 'wp_dashboard_setup', [ $this, 'init_dashboard_widgets' ] );
+		add_action( 'woocommerce_after_dashboard_status_widget', [ $this, 'add_tbc_status' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'load_report_css' ] );
 	}
 
 	/**
@@ -201,6 +213,51 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Extras {
 
 		$feed->__destruct();
 		unset( $feed );
+	}
+
+	/**
+	 * Add TBC status to WooCommerce reports widget.
+	 *
+	 * @since 2.0.0
+	 */
+	public function add_tbc_status() {
+
+		if ( current_user_can( 'view_woocommerce_reports' ) ) {
+			?>
+
+			<li class="tbc-gateway-free-report-counter">
+				<a href="https://plugandpay.ge/product/woocommerce-tbc-credit-card-payment-gateway/?utm_source=tbcfree&utm_medium=dashboard&utm_campaign=upgradeNagCounter">
+					<?php
+						$current = 0;
+						$total   = 10;
+						printf(
+							/* translators: %s: current / total */
+							esc_html__( '%s TBC transactions this month', 'tbc-gateway-free' ),
+							sprintf( '<strong>%d / %d</strong>', esc_html( $current ), esc_html( $total ) )
+						);
+					?>
+				</a>
+			</li>
+
+			<li class="tbc-gateway-free-report-notice">
+				<a href="https://plugandpay.ge/product/woocommerce-tbc-credit-card-payment-gateway/?utm_source=tbcfree&utm_medium=dashboard&utm_campaign=upgradeNagNotice">
+					<?php
+						esc_html_e( 'Upgrade to TBC Premium plugin and have unlimited monthly transactions.', 'tbc-gateway-free' );
+					?>
+				</a>
+			</li>
+			<?php
+		}
+
+	}
+
+	/**
+	 * Load report css in dashboard.
+	 *
+	 * @since 2.0.0
+	 */
+	public function load_report_css() {
+		wp_enqueue_style( 'tbc-gateway-free-report', plugins_url( 'assets/tbc-gateway-free-report.css', $this->file ), [], $this->version );
 	}
 
 }

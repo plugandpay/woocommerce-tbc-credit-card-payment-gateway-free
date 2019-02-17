@@ -1,0 +1,24 @@
+/**
+ * Intellectual Property rights, and copyright, reserved by Plug and Pay, Ltd. as allowed by law include,
+ * but are not limited to, the working concept, function, and behavior of this software,
+ * the logical code structure and expression as written.
+ *
+ * @package     WooCommerce TBC Credit Card Payment Gateway (Free)
+ * @author      Plug and Pay Ltd. https://plugandpay.ge/
+ * @copyright   Copyright (c) Plug and Pay Ltd. (support@plugandpay.ge)
+ * @since       2.0.0
+ * @license     http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0
+ */
+
+.tbc-gateway-free-report-counter a::before {
+	content: url('tbc.svg') !important;
+	width: 24px !important;
+}
+
+.tbc-gateway-free-report-notice a {
+	color: red !important;
+}
+
+.tbc-gateway-free-report-notice a::before {
+	display: none !important;
+}

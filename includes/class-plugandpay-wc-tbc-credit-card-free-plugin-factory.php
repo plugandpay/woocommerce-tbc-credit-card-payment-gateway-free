@@ -134,8 +134,9 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Plugin_Factory {
 		 *
 		 * @since 2.0.0
 		 * @param string $file Must be __FILE__ from the root plugin file.
+		 * @param string $software_version Current software version of this plugin.
 		 */
-		$this->extras = new PlugandPay_WC_TBC_Credit_Card_Free_Extras( $this->file );
+		$this->extras = new PlugandPay_WC_TBC_Credit_Card_Free_Extras( $this->file, $this->version );
 
 	}
 
