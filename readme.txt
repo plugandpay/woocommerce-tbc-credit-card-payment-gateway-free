@@ -26,14 +26,14 @@ Accept Visa/Mastercard payments in your WooCommerce shop using TBC gateway.
 * Multi merchant support allows you to accept GEL, USD or EUR
 * Support (mail/phone)
 
-Learn more about our [premium plugin](https://plugandpay.ge/product/woocommerce-tbc-credit-card-payment-gateway-v2/)
+Learn more about our [premium plugin](https://plugandpay.ge/product/woocommerce-tbc-credit-card-payment-gateway/?utm_source=tbcfree&utm_medium=readme&utm_campaign=upgradeNag)
 
 == Installation ==
 
-For help setting up and configuring this plugin please refer to our [documentation](https://plugandpay.ge/woocommerce-tbc-credit-card-payment-gateway-documentation/)
+For help setting up and configuring this plugin please refer to our [documentation](https://plugandpay.ge/woocommerce-tbc-credit-card-payment-gateway-documentation/?utm_source=tbcfree&utm_medium=readme&utm_campaign=docs)
 
-[FAQ](https://plugandpay.ge/woocommerce-tbc-credit-card-payment-gateway-documentation/faq/)
-[Troubleshooting](https://plugandpay.ge/woocommerce-tbc-credit-card-payment-gateway-documentation/troubleshooting/)
+[FAQ](https://plugandpay.ge/woocommerce-tbc-credit-card-payment-gateway-documentation/faq/?utm_source=tbcfree&utm_medium=readme&utm_campaign=docs)
+[Troubleshooting](https://plugandpay.ge/woocommerce-tbc-credit-card-payment-gateway-documentation/troubleshooting/?utm_source=tbcfree&utm_medium=readme&utm_campaign=docs)
 
 == Screenshots ==
 
