@@ -51,6 +51,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Extras {
 		add_action( 'wp_dashboard_setup', [ $this, 'init_dashboard_widgets' ] );
 		add_action( 'woocommerce_after_dashboard_status_widget', [ $this, 'add_tbc_status' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'load_report_css' ] );
+		add_filter( 'plugin_action_links_' . plugin_basename( $this->file ), [ $this, 'add_upgrade_link' ] );
 	}
 
 	/**
@@ -258,6 +259,28 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Extras {
 	 */
 	public function load_report_css() {
 		wp_enqueue_style( 'tbc-gateway-free-report', plugins_url( 'assets/tbc-gateway-free-report.css', $this->file ), [], $this->version );
+	}
+
+	/**
+	 * Add upgrade notice to plugin action links.
+	 *
+	 * @since 2.0.0
+	 * @param array $links Plugin action links.
+	 * @return array
+	 */
+	public function add_upgrade_link( $links ) {
+		$upgrade_link = sprintf(
+			'<a href="%s" target="_blank"><strong style="color: red; display: inline;">%s</strong></a>',
+			'https://plugandpay.ge/product/woocommerce-tbc-credit-card-payment-gateway/?utm_source=tbcfree&utm_medium=plugins&utm_campaign=upgradeNag',
+			esc_html__( 'Upgrade To Premium', 'tbc-gateway-free' )
+		);
+		$links        = array_merge(
+			[
+				'tbc-gateway-free-upgrade' => $upgrade_link,
+			],
+			$links
+		);
+		return $links;
 	}
 
 }
