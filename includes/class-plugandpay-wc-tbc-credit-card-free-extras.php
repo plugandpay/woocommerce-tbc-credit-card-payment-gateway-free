@@ -270,7 +270,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Extras {
 	 */
 	public function add_upgrade_link( $links ) {
 		$upgrade_link = sprintf(
-			'<a href="%s" target="_blank"><strong style="color: red; display: inline;">%s</strong></a>',
+			'<a href="%s" target="_blank"><strong style="color: #11967A; display: inline;">%s</strong></a>',
 			'https://plugandpay.ge/product/woocommerce-tbc-credit-card-payment-gateway/?utm_source=tbcfree&utm_medium=plugins&utm_campaign=upgradeNag',
 			esc_html__( 'Upgrade To Premium', 'tbc-gateway-free' )
 		);
