@@ -65,7 +65,8 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Extras {
 	public function add_gateway_icons( $icons, $gateway_id ) {
 		if ( 'tbc_credit_card_free_gateway' === $gateway_id ) {
 			$icons .= sprintf(
-				'<a href="https://plugandpay.ge"><img width="40" src="%1$sassets/plugandpay.svg" alt="Plug and Pay" /></a>',
+				'<a href="https://plugandpay.ge%1$s"><img width="40" src="%2$sassets/plugandpay.svg" alt="Plug and Pay" /></a>',
+				$this->analytics_campaign( 'checkout', 'chooseGatewayLogo' ),
 				plugin_dir_url( $this->file )
 			);
 		}
@@ -105,14 +106,21 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Extras {
 	 * @since 2.0.0
 	 */
 	public function display_products_widget() {
-		$this->display_feed( 'https://plugandpay.ge/shop/feed/', [ 'type' => 'products' ] );
+		$campaign = $this->analytics_campaign( 'dashboard', 'productsWidget' );
+		$this->display_feed(
+			'https://plugandpay.ge/shop/feed/',
+			[
+				'type'     => 'products',
+				'campaign' => $campaign,
+			]
+		);
 		?>
 
 		<p class="community-events-footer" style="margin:-12px;padding-bottom:0;">
 			<?php
 				printf(
-					'<a href="%1$s" target="_blank">%2$s <span class="screen-reader-text">%3$s</span><span aria-hidden="true" class="dashicons dashicons-external"></span></a>',
-					'https://plugandpay.ge/shop/?utm_source=tbcfree&utm_medium=dashboard&utm_campaign=productsWidget',
+					'<a href="https://plugandpay.ge/shop/%1$s" target="_blank">%2$s <span class="screen-reader-text">%3$s</span><span aria-hidden="true" class="dashicons dashicons-external"></span></a>',
+					esc_html( $campaign ),
 					esc_html__( 'Shop', 'tbc-gateway-free' ),
 					/* translators: accessibility text */
 					esc_html__( '(opens in a new window)', 'tbc-gateway-free' )
@@ -128,14 +136,20 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Extras {
 	 * @since 2.0.0
 	 */
 	public function display_blog_widget() {
-		$this->display_feed( 'https://plugandpay.ge/feed/' );
+		$campaign = $this->analytics_campaign( 'dashboard', 'blogWidget' );
+		$this->display_feed(
+			'https://plugandpay.ge/feed/',
+			[
+				'campaign' => $campaign,
+			]
+		);
 		?>
 
 		<p class="community-events-footer" style="margin:-12px;padding-bottom:0;">
 			<?php
 				printf(
-					'<a href="%1$s" target="_blank">%2$s <span class="screen-reader-text">%3$s</span><span aria-hidden="true" class="dashicons dashicons-external"></span></a>',
-					'https://plugandpay.ge/blog/?utm_source=tbcfree&utm_medium=dashboard&utm_campaign=blogWidget',
+					'<a href="https://plugandpay.ge/blog/%1$s" target="_blank">%2$s <span class="screen-reader-text">%3$s</span><span aria-hidden="true" class="dashicons dashicons-external"></span></a>',
+					esc_html( $campaign ),
 					esc_html__( 'Blog', 'tbc-gateway-free' ),
 					/* translators: accessibility text */
 					esc_html__( '(opens in a new window)', 'tbc-gateway-free' )
@@ -167,8 +181,9 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Extras {
 		}
 
 		$default_args = [
-			'type'  => 'posts',
-			'items' => 5,
+			'type'     => 'posts',
+			'items'    => 5,
+			'campaign' => '',
 		];
 		$args         = wp_parse_args( $args, $default_args );
 
@@ -183,14 +198,13 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Extras {
 		switch ( $args['type'] ) {
 
 			case 'posts':
-				$campaign = 'utm_source=tbcfree&utm_medium=dashboard&utm_campaign=blogWidget';
 				foreach ( $feed->get_items( 0, $args['items'] ) as $item ) {
 					$image = $item->get_item_tags( '', 'image' );
 					echo sprintf(
-						'<li><img src="%s" style="float:left;width:30%%;padding-right:5%%;" /><div style="float:left;width:65%%;"><a href="%s?%s">%s</a><p>%s</p></div><div style="clear: both;"></div></li>',
+						'<li><img src="%s" style="float:left;width:30%%;padding-right:5%%;" /><div style="float:left;width:65%%;"><a href="%s%s">%s</a><p>%s</p></div><div style="clear: both;"></div></li>',
 						esc_url( isset( $image[0]['data'] ) ? $image[0]['data'] : '' ),
 						esc_url( $item->get_link() ),
-						esc_html( $campaign ),
+						esc_html( $args['campaign'] ),
 						esc_html( $item->get_title() ),
 						esc_html( wp_trim_words( $item->get_description(), 14, ' [&hellip;]' ) )
 					);
@@ -198,13 +212,12 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Extras {
 				break;
 
 			case 'products':
-				$campaign = 'utm_source=tbcfree&utm_medium=dashboard&utm_campaign=productsWidget';
 				foreach ( $feed->get_items( 0, $args['items'] ) as $item ) {
 					$image = $item->get_item_tags( '', 'image' );
 					echo sprintf(
-						'<li style="display:inline-block;width:33.33%%;"><a href="%s?%s"><img src="%s" style="width:95%%;padding-bottom:5%%;" /></a></li>',
+						'<li style="display:inline-block;width:33.33%%;"><a href="%s%s"><img src="%s" style="width:95%%;padding-bottom:5%%;" /></a></li>',
 						esc_url( $item->get_link() ),
-						esc_html( $campaign ),
+						esc_html( $args['campaign'] ),
 						esc_url( isset( $image[0]['data'] ) ? $image[0]['data'] : '' )
 					);
 				}
@@ -227,7 +240,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Extras {
 			?>
 
 			<li class="tbc-gateway-free-report-counter">
-				<a target="_blank" href="https://plugandpay.ge/product/woocommerce-tbc-credit-card-payment-gateway/?utm_source=tbcfree&utm_medium=dashboard&utm_campaign=upgradeNagCounter">
+				<a target="_blank" href="https://plugandpay.ge/product/woocommerce-tbc-credit-card-payment-gateway/<?php echo esc_html( $this->analytics_campaign( 'dashboard', 'upgradeNagCounter' ) ); ?>">
 					<?php
 						$current = 0;
 						$total   = 10;
@@ -241,7 +254,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Extras {
 			</li>
 
 			<li class="tbc-gateway-free-report-notice">
-				<a target="_blank" href="https://plugandpay.ge/product/woocommerce-tbc-credit-card-payment-gateway/?utm_source=tbcfree&utm_medium=dashboard&utm_campaign=upgradeNagNotice">
+				<a target="_blank" href="https://plugandpay.ge/product/woocommerce-tbc-credit-card-payment-gateway/<?php echo esc_html( $this->analytics_campaign( 'dashboard', 'upgradeNagNotice' ) ); ?>">
 					<?php
 						esc_html_e( 'Upgrade to TBC Premium plugin and have unlimited monthly transactions.', 'tbc-gateway-free' );
 					?>
@@ -270,8 +283,8 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Extras {
 	 */
 	public function add_upgrade_link( $links ) {
 		$upgrade_link = sprintf(
-			'<a href="%s" target="_blank"><strong style="color: #11967A; display: inline;">%s</strong></a>',
-			'https://plugandpay.ge/product/woocommerce-tbc-credit-card-payment-gateway/?utm_source=tbcfree&utm_medium=plugins&utm_campaign=upgradeNag',
+			'<a href="https://plugandpay.ge/product/woocommerce-tbc-credit-card-payment-gateway/%s" target="_blank"><strong style="color: #11967A; display: inline;">%s</strong></a>',
+			esc_html( $this->analytics_campaign( 'installedPlugins', 'upgradeNag' ) ),
 			esc_html__( 'Upgrade To Premium', 'tbc-gateway-free' )
 		);
 		$links        = array_merge(
@@ -281,6 +294,24 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Extras {
 			$links
 		);
 		return $links;
+	}
+
+	/**
+	 * Generate analytics campaign query string.
+	 *
+	 * @since 2.0.0
+	 * @param string $source Source (Where).
+	 * @param string $medium Medium (What).
+	 * @param string $campaign Optional campaign name, defaults to tbcfree.
+	 * @return string
+	 */
+	public function analytics_campaign( $source, $medium, $campaign = 'tbcfree' ) {
+		return sprintf(
+			'?utm_source=%s&utm_medium=%s&utm_campaign=%s',
+			$source,
+			$medium,
+			$campaign
+		);
 	}
 
 }

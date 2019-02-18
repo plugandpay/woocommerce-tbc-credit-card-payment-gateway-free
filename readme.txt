@@ -28,14 +28,14 @@ Accept Visa/Mastercard payments in your WooCommerce shop using TBC gateway.
 * Unlimited transactions
 * Support (mail/phone)
 
-Learn more about our [premium plugin](https://plugandpay.ge/product/woocommerce-tbc-credit-card-payment-gateway/?utm_source=tbcfree&utm_medium=readme&utm_campaign=upgradeNag)
+Learn more about our [premium plugin](https://plugandpay.ge/product/woocommerce-tbc-credit-card-payment-gateway/?utm_source=readme&utm_medium=premiumLinkDescription&utm_campaign=tbcfree)
 
 == Installation ==
 
-For help setting up and configuring this plugin please refer to our [documentation](https://plugandpay.ge/woocommerce-tbc-credit-card-payment-gateway-documentation/?utm_source=tbcfree&utm_medium=readme&utm_campaign=docs)
+For help setting up and configuring this plugin please refer to our [documentation](https://plugandpay.ge/woocommerce-tbc-credit-card-payment-gateway-documentation/?utm_source=readme&utm_medium=linkDocs&utm_campaign=tbcfree)
 
-[FAQ](https://plugandpay.ge/woocommerce-tbc-credit-card-payment-gateway-documentation/faq/?utm_source=tbcfree&utm_medium=readme&utm_campaign=docs)
-[Troubleshooting](https://plugandpay.ge/woocommerce-tbc-credit-card-payment-gateway-documentation/troubleshooting/?utm_source=tbcfree&utm_medium=readme&utm_campaign=docs)
+[FAQ](https://plugandpay.ge/woocommerce-tbc-credit-card-payment-gateway-documentation/faq/?utm_source=readme&utm_medium=linkDocs&utm_campaign=tbcfree)
+[Troubleshooting](https://plugandpay.ge/woocommerce-tbc-credit-card-payment-gateway-documentation/troubleshooting/?utm_source=readme&utm_medium=linkDocs&utm_campaign=tbcfree)
 
 == Screenshots ==
 
