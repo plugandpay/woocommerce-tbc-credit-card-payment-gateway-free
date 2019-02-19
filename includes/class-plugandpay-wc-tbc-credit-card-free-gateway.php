@@ -185,26 +185,24 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 		$this->tbc->description = sprintf( __( '%s - Order %s', 'tbc-gateway-free' ), wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES ), $order->get_id() );
 		$this->tbc->language    = strtoupper( substr( get_bloginfo('language'), 0, -3 ) );
 
-		// Log order details
 		$this->log( sprintf( __( 'Info ~ Order id: %s - amount: %s (%s) %s (%s), language: %s.', 'tbc-gateway-free' ), $order->get_id(), $amount, $this->tbc->amount, $currency, $this->tbc->currency, $this->tbc->language ) );
 
-		// init contact with Tbc
 		try {
 			$start = $this->tbc->sms_start_transaction();
 			if ( ! isset($start['error']) && isset($start['TRANSACTION_ID']) ) {
 				$trans_id = $start['TRANSACTION_ID'];
 			} else {
 				if ( isset($start['error']) ) {
-					// Log returned error
+					// Log returned error.
 					$this->log( sprintf( __( 'Error ~ Order id: %s - Error msg: %s.', 'tbc-gateway-free' ), $order->get_id(), $start['error'] ) );
 				} else {
-					// Log generic error
+					// Log generic error.
 					$this->log( sprintf( __( 'Error ~ Order id: %s - no TRANSACTION_ID from Tbc.', 'tbc-gateway-free' ), $order->get_id() ) );
 				}
 				throw new Exception( __( 'Tbc did not return TRANSACTION_ID.', 'tbc-gateway-free' ) );
 			}
 		} catch ( Exception $e ) {
-			// Add private note to order details
+			// Add private note to order details.
 			$order_note = $e->getMessage();
 			$order->update_status( 'failed', $order_note );
 
@@ -215,7 +213,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 
 		$this->log( sprintf( __( 'Success ~ Order id: %s -> transaction id: %s obtained successfully', 'tbc-gateway-free' ), $order->get_id(), $trans_id ) );
 
-		// Save trans_id for reference
+		// Save trans_id for reference.
 		update_post_meta( $order->get_id(), '_transaction_id', $trans_id );
 
 		$this->increment_transactions();
