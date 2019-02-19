@@ -14,7 +14,6 @@
         ]
     },
     "require": {
-        "wearede/tbcpay-php": "^0.9",
-        "alcohol/iso4217": "^3.1"
+        "wearede/tbcpay-php": "^0.9"
     }
 }

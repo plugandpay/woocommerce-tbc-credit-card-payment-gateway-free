@@ -169,27 +169,10 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 	}
 
 	/**
-	 * Convert currency code to number
+	 * Process the payment.
 	 *
-	 * e.g. USD -> 840
-	 *
-	 * @param  string $code currency code
-	 * @return string currency number
-	 */
-	public function get_iso4217_number( $code ) {
-		$iso4217  = new Alcohol\ISO4217();
-		$currency = $iso4217->getByAlpha3( $code );
-		return $currency['numeric'];
-	}
-
-	/**
-	 * Process the payment
-	 *
-	 * This runs on ajax call from checkout page, when user clicks pay button
-	 *
-	 * @param  integer $order_id
-	 * @uses   WC_Gateway_TBC::get_iso4217_number()
-	 * @uses   WC_Gateway_TBC::get_payment_form_url()
+	 * @since 1.0.0
+	 * @param int $order_id Order ID.
 	 * @return array
 	 */
 	public function process_payment( $order_id ) {
@@ -197,9 +180,8 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 		$currency = $order->get_currency() ? $order->get_currency() : get_woocommerce_currency();
 		$amount   = $order->get_total();
 
-		// Special data transformation for Tbc API
 		$this->tbc->amount      = $amount * 100;
-		$this->tbc->currency    = $this->get_iso4217_number( $currency );
+		$this->tbc->currency    = 981;
 		$this->tbc->description = sprintf( __( '%s - Order %s', 'tbc-gateway-free' ), wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES ), $order->get_id() );
 		$this->tbc->language    = strtoupper( substr( get_bloginfo('language'), 0, -3 ) );
 
