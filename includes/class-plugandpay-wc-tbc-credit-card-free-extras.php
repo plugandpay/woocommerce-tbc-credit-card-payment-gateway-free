@@ -242,7 +242,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Extras {
 			<li class="tbc-gateway-free-report-counter">
 				<a target="_blank" href="https://plugandpay.ge/product/woocommerce-tbc-credit-card-payment-gateway/<?php echo esc_html( $this->analytics_campaign( 'dashboard', 'upgradeNagCounter' ) ); ?>">
 					<?php
-						$current = 0;
+						$current = (int) get_option( sprintf( 'woocommerce_tbc_credit_card_free_gateway_transactions_%s', date( 'm_Y' ) ) );
 						$total   = 10;
 						printf(
 							/* translators: %s: current / total */

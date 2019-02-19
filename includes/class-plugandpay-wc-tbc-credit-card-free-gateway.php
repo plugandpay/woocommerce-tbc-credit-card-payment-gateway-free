@@ -128,6 +128,49 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 	}
 
 	/**
+	 * Is this gateway available?
+	 *
+	 * @since 2.0.0
+	 * @return bool
+	 */
+	public function is_available() {
+		return parent::is_available() && $this->has_transactions() && $this->has_required_options();
+	}
+
+	/**
+	 * Are there transactions left?
+	 *
+	 * @since 2.0.0
+	 * @return bool
+	 */
+	public function has_transactions() {
+		return (int) get_option( sprintf( 'woocommerce_%s_transactions_%s', $this->id, date( 'm_Y' ) ) ) < 10 ? true : false;
+	}
+
+	/**
+	 * Are all required options filled out?
+	 *
+	 * @since 2.0.0
+	 * @return bool
+	 */
+	public function has_required_options() {
+		return $this->cert_path && $this->cert_pass ? true : false;
+	}
+
+	/**
+	 * Increment transactions.
+	 *
+	 * @since 2.0.0
+	 * @return bool
+	 */
+	public function increment_transactions() {
+		$opt     = sprintf( 'woocommerce_%s_transactions_%s', $this->id, date( 'm_Y' ) );
+		$current = (int) get_option( $opt );
+		$current++;
+		return update_option( $opt, $current );
+	}
+
+	/**
 	 * Convert currency code to number
 	 *
 	 * e.g. USD -> 840
@@ -194,6 +237,8 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 
 		// Save trans_id for reference
 		update_post_meta( $order->get_id(), '_transaction_id', $trans_id );
+
+		$this->increment_transactions();
 
 		$this->log( sprintf( __( 'Info ~ Order id: %s, redirecting user to Tbc gateway', 'tbc-gateway-free' ), $order->get_id() ) );
 
