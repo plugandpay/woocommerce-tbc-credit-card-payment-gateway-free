@@ -96,34 +96,32 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 	}
 
 	/**
-	 * Initialise gateway settings
+	 * Initialise gateway settings.
+	 *
+	 * @since 1.0.0
 	 */
 	public function init_form_fields() {
 		$this->form_fields = include 'settings/gateway.php';
 	}
 
 	/**
-	 * Display notices in admin dashboard
+	 * Display notices in admin dashboard.
 	 *
-	 * Check if required parameters: cert_path and cert_pass are set.
-	 * Display errors notice if they are missing,
-	 * both of these parameters are required for correct functioning of the plugin.
-	 * Check happens only when plugin is enabled not to clutter admin interface.
-	 *
-	 * @return null|void
+	 * @since 1.0.0
 	 */
 	public function admin_notices() {
-		if ( $this->enabled == 'no' ) {
+		if ( 'no' === $this->enabled ) {
 			return;
 		}
 
-		// Check for required parameters
 		if ( ! $this->cert_path ) {
-			echo '<div class="error"><p>' . sprintf( __( 'Tbc error: Please enter certificate path <a href="%s">here</a>', 'tbc-gateway-free' ), admin_url( 'admin.php?page=wc-settings&tab=checkout&section=tbc_credit_card_free_gateway' ) ) . '</p></div>';
+			/* translators: %s Gateway settings URL */
+			echo '<div class="error"><p>' . wp_kses_data( sprintf( __( 'TBC error: Please enter certificate path <a href="%s">here</a>.', 'tbc-gateway-free' ), esc_url( admin_url( 'admin.php?page=wc-settings&tab=checkout&section=' . $this->id ) ) ) ) . '</p></div>';
 		}
 
 		if ( ! $this->cert_pass ) {
-			echo '<div class="error"><p>' . sprintf( __( 'Tbc error: Please enter certificate passphrase <a href="%s">here</a>', 'tbc-gateway-free' ), admin_url( 'admin.php?page=wc-settings&tab=checkout&section=tbc_credit_card_free_gateway' ) ) . '</p></div>';
+			/* translators: %s Gateway settings URL */
+			echo '<div class="error"><p>' . wp_kses_data( sprintf( __( 'TBC error: Please enter certificate passphrase <a href="%s">here</a>.', 'tbc-gateway-free' ), esc_url( admin_url( 'admin.php?page=wc-settings&tab=checkout&section=' . $this->id ) ) ) ) . '</p></div>';
 		}
 	}
 
