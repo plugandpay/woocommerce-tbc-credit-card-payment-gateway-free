@@ -240,7 +240,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 	public function return_from_payment_form_ok() {
 
 		try {
-			if ( ! isset($_REQUEST['trans_id']) ) {
+			if ( ! isset( $_REQUEST['trans_id'] ) ) {
 				$this->log( __( 'Error ~ Tbc did not return trans_id in $_REQUEST on OK page', 'tbc-gateway-free' ) );
 				throw new Exception( __( 'Tbc did not return transaction id!', 'tbc-gateway-free' ) );
 			}
@@ -270,7 +270,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 				throw new Exception( __( 'We could not verify transaction result, logs should contain more information about this failure.', 'tbc-gateway-free' ) );
 			}
 		} catch ( Exception $e ) {
-			// Add private note to order details
+			// Add private note to order details.
 			$order_note = $e->getMessage();
 			$order->update_status( 'failed', $order_note );
 			wc_add_notice( $order_note, 'error' );
@@ -278,18 +278,18 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 			exit();
 		}
 
-		// Payment complete
+		// Payment complete.
 		$order->payment_complete();
 
-		// Add order note
+		// Add order note.
 		$complete_message = __( 'Tbc charge complete', 'tbc-gateway-free' );
 		$order->add_order_note( $complete_message );
 		$this->log( sprintf( __( 'Success ~ %s, transaction id: %s, order id: %s', 'tbc-gateway-free' ), $complete_message, $trans_id, $order_id ) );
 
-		// Remove cart
+		// Remove cart.
 		WC()->cart->empty_cart();
 
-		// redirect to thank you
+		// Redirect to thank you.
 		wp_redirect( $this->get_return_url( $order ) );
 		exit();
 	}
@@ -300,7 +300,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 	 * @since 1.0.0
 	 */
 	public function return_from_payment_form_fail() {
-		$error = __( 'Technical faulure in ECOMM system', 'tbc-gateway-free' );
+		$error = __( 'Technical faulure in ECOMM system!', 'tbc-gateway-free' );
 		$this->log( sprintf( 'Error ~ %s', $error ) );
 		wp_die( esc_html( $error ) );
 	}
