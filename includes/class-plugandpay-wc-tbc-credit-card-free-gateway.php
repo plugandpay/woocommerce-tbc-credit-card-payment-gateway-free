@@ -180,10 +180,11 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 		$currency = $order->get_currency() ? $order->get_currency() : get_woocommerce_currency();
 		$amount   = $order->get_total();
 
+		/* translators: %s order id */
+		$this->tbc->description = sprintf( __( 'Order id %s', 'tbc-gateway-free' ), $order->get_id() );
+		$this->tbc->language    = strtoupper( substr( get_bloginfo( 'language' ), 0, -3 ) );
 		$this->tbc->amount      = $amount * 100;
 		$this->tbc->currency    = 981;
-		$this->tbc->description = sprintf( __( '%s - Order %s', 'tbc-gateway-free' ), wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES ), $order->get_id() );
-		$this->tbc->language    = strtoupper( substr( get_bloginfo( 'language' ), 0, -3 ) );
 
 		$this->log( sprintf( 'Info ~ Order id: %s - amount: %s (%s) %s (%s), language: %s.', $order->get_id(), $amount, $this->tbc->amount, $currency, $this->tbc->currency, $this->tbc->language ) );
 
