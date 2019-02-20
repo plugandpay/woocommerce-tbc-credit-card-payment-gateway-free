@@ -223,7 +223,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 		return array(
 			'result'   => 'success',
 			'messages' => __( 'Success! redirecting to Tbc now ...', 'tbc-gateway-free' ),
-			// Redirect user to tbc payment form
+			// Redirect user to tbc payment form.
 			'redirect' => $this->get_payment_form_url( $trans_id ),
 		);
 	}
