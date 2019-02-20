@@ -182,7 +182,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 
 		/* translators: %s order id */
 		$this->tbc->description = sprintf( __( 'Order id %s', 'tbc-gateway-free' ), $order->get_id() );
-		$this->tbc->language    = strtoupper( substr( get_bloginfo( 'language' ), 0, -3 ) );
+		$this->tbc->language    = $this->get_payment_form_language();
 		$this->tbc->amount      = $amount * 100;
 		$this->tbc->currency    = 981;
 
@@ -315,6 +315,23 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 	 */
 	public function get_payment_form_url( $trans_id ) {
 		return sprintf( '%s/wc-api/redirect_to_payment_form?merchant_host=%s&transaction_id=%s', get_bloginfo( 'url' ), $this->get_option( 'merchant_host' ), rawurlencode( $trans_id ) );
+	}
+
+	/**
+	 * TBC payment page language selection.
+	 *
+	 * @since 2.0.0
+	 * @return string
+	 */
+	public function get_payment_form_language() {
+			$locale = get_locale();
+			$langs  = array(
+				'ka_GE' => 'GE',
+				'en_US' => 'EN',
+				'ru_RU' => 'RU',
+			);
+			$lang   = isset( $langs[ $locale ] ) ? $langs[ $locale ] : strtoupper( substr( $locale, 0, -3 ) );
+			return $lang;
 	}
 
 	/**
