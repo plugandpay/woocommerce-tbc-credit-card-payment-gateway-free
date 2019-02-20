@@ -25,7 +25,7 @@ Accept Visa/Mastercard payments in your WooCommerce shop using TBC gateway.
 * All features from the Free version
 * DMS transaction type allows you to block required amount first and capture funds later (within 30 days)
 * Refunds
-* Multi merchant
+* Multiple TBC merchant accounts
 * Accepts GEL, USD, EUR
 * Unlimited transactions
 * Support (mail/phone)
