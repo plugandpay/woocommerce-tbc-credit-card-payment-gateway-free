@@ -185,7 +185,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 		$this->tbc->description = sprintf( __( '%s - Order %s', 'tbc-gateway-free' ), wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES ), $order->get_id() );
 		$this->tbc->language    = strtoupper( substr( get_bloginfo( 'language' ), 0, -3 ) );
 
-		$this->log( sprintf( __( 'Info ~ Order id: %s - amount: %s (%s) %s (%s), language: %s.', 'tbc-gateway-free' ), $order->get_id(), $amount, $this->tbc->amount, $currency, $this->tbc->currency, $this->tbc->language ) );
+		$this->log( sprintf( 'Info ~ Order id: %s - amount: %s (%s) %s (%s), language: %s.', $order->get_id(), $amount, $this->tbc->amount, $currency, $this->tbc->currency, $this->tbc->language ) );
 
 		try {
 			$start = $this->tbc->sms_start_transaction();
@@ -194,10 +194,10 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 			} else {
 				if ( isset( $start['error'] ) ) {
 					// Log returned error.
-					$this->log( sprintf( __( 'Error ~ Order id: %s - Error msg: %s.', 'tbc-gateway-free' ), $order->get_id(), $start['error'] ) );
+					$this->log( sprintf( 'Error ~ Order id: %s - Error msg: %s.', $order->get_id(), $start['error'] ) );
 				} else {
 					// Log generic error.
-					$this->log( sprintf( __( 'Error ~ Order id: %s - no TRANSACTION_ID from Tbc.', 'tbc-gateway-free' ), $order->get_id() ) );
+					$this->log( sprintf( 'Error ~ Order id: %s - no TRANSACTION_ID from Tbc.', $order->get_id() ) );
 				}
 				throw new Exception( __( 'Tbc did not return TRANSACTION_ID.', 'tbc-gateway-free' ) );
 			}
@@ -211,14 +211,14 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 			);
 		}
 
-		$this->log( sprintf( __( 'Success ~ Order id: %s -> transaction id: %s obtained successfully', 'tbc-gateway-free' ), $order->get_id(), $trans_id ) );
+		$this->log( sprintf( 'Success ~ Order id: %s -> transaction id: %s obtained successfully', $order->get_id(), $trans_id ) );
 
 		// Save trans_id for reference.
 		update_post_meta( $order->get_id(), '_transaction_id', $trans_id );
 
 		$this->increment_transactions();
 
-		$this->log( sprintf( __( 'Info ~ Order id: %s, redirecting user to Tbc gateway', 'tbc-gateway-free' ), $order->get_id() ) );
+		$this->log( sprintf( 'Info ~ Order id: %s, redirecting user to Tbc gateway', $order->get_id() ) );
 
 		return array(
 			'result'   => 'success',
@@ -241,20 +241,20 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 
 		try {
 			if ( ! isset( $_REQUEST['trans_id'] ) ) {
-				$this->log( __( 'Error ~ Tbc did not return trans_id in $_REQUEST on OK page', 'tbc-gateway-free' ) );
+				$this->log( 'Error ~ Tbc did not return trans_id in $_REQUEST on OK page' );
 				throw new Exception( __( 'Tbc did not return transaction id!', 'tbc-gateway-free' ) );
 			}
 			$trans_id = $_REQUEST['trans_id'];
 
 			$order_id = $this->get_order_id_by_transaction_id( $trans_id );
 			if ( ! $order_id ) {
-				$this->log( sprintf( __( 'Error ~ could not find order id associated with transaction id: %s', 'tbc-gateway-free' ), $trans_id ) );
+				$this->log( sprintf( 'Error ~ could not find order id associated with transaction id: %s', $trans_id ) );
 				throw new Exception( __( 'We could not find your order id!', 'tbc-gateway-free' ) );
 			}
 
 			$order = wc_get_order( $order_id );
 			if ( ! $order ) {
-				$this->log( sprintf( __( 'Error ~ could not find order associated with order id: %s', 'tbc-gateway-free' ), $order_id ) );
+				$this->log( sprintf( 'Error ~ could not find order associated with order id: %s', $order_id ) );
 				throw new Exception( __( 'We could not find your order!', 'tbc-gateway-free' ) );
 			}
 		} catch ( Exception $e ) {
@@ -266,7 +266,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 		try {
 			$transaction = $this->tbc->get_transaction_result( $trans_id );
 			if ( ! isset( $transaction['RESULT'] ) || 'OK' !== $transaction['RESULT'] ) {
-				$this->log( sprintf( __( 'Error ~ could not verify transaction result, Tbc did not return OK: %s', 'tbc-gateway-free' ), json_encode( $transaction ) ) );
+				$this->log( sprintf( 'Error ~ could not verify transaction result, Tbc did not return OK: %s', json_encode( $transaction ) ) );
 				throw new Exception( __( 'We could not verify transaction result, logs should contain more information about this failure.', 'tbc-gateway-free' ) );
 			}
 		} catch ( Exception $e ) {
@@ -284,7 +284,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 		// Add order note.
 		$complete_message = __( 'Tbc charge complete', 'tbc-gateway-free' );
 		$order->add_order_note( $complete_message );
-		$this->log( sprintf( __( 'Success ~ %s, transaction id: %s, order id: %s', 'tbc-gateway-free' ), $complete_message, $trans_id, $order_id ) );
+		$this->log( sprintf( 'Success ~ %s, transaction id: %s, order id: %s', $complete_message, $trans_id, $order_id ) );
 
 		// Remove cart.
 		WC()->cart->empty_cart();
