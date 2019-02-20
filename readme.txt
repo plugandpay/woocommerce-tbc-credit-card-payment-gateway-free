@@ -3,7 +3,7 @@ Contributors: sandrodz, plugandpay
 Tags: WooCommerce, GEL, TBC, gateway, bank gateway, credit card gateway, payment, Georgia
 Requires at least: 4.0
 Tested up to: 4.9.8
-Stable tag: 1.0.3
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -50,6 +50,22 @@ For help setting up and configuring this plugin please refer to our [documentati
 
 == Changelog ==
 
+= 2.0.0 =
+* chore: Remove screenshots from plugin repo
+* refactor: New plugin structure
+* feat: Product and Blog dashboard widgets
+* refactor: Log close business day
+* refactor: WordPress coding standard (WPCS)
+* refactor: Update log method to use levels
+* docs: Improve readme for clarity and consistency
+* chore: Add empty pot
+* feat: Gateway status report dashboard
+* feat: Gateway availability check
+* refactor: Remove Alcohol\ISO421 dependency
+* chore: Remove translation for logs
+* feat: Better language detection
+* fix: Blogname encoding problems with API
+
 = 1.0.3 =
 * feat: Merchant host option (securepay, ecommerce)
 * refactor: Improve ok/fail inputs
@@ -65,3 +81,6 @@ For help setting up and configuring this plugin please refer to our [documentati
 * Initial release
 
 == Upgrade Notice ==
+
+= 2.0.0 =
+Please Write down plugin setting (WooCommerce -> Settings -> Payments -> TBC Free) as they will be lost during upgrade. You will need to reinsert these settings later.

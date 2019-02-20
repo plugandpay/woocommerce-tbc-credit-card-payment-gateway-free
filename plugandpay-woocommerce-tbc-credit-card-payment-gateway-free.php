@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce TBC Credit Card Payment Gateway (Free)
  * Plugin URI:  https://plugandpay.ge/product/woocommerce-tbc-credit-card-payment-gateway-v1/
  * Description: Accept Visa/Mastercard payments in your WooCommerce shop using TBC gateway.
- * Version:     1.0.3
+ * Version:     2.0.0
  * Author:      Plug and Pay Ltd.
  * Author URI:  http://plugandpay.ge/
  * License:     GPL2
@@ -38,4 +38,4 @@ require_once __DIR__ . '/vendor/autoload.php';
  * @param string $software_version Current software version of this plugin.
  *                                 Starts at version 1.0.0 and uses SemVer - https://semver.org
  */
-PlugandPay_WC_TBC_Credit_Card_Free_Plugin_Factory::instance( __FILE__, '1.0.3' );
+PlugandPay_WC_TBC_Credit_Card_Free_Plugin_Factory::instance( __FILE__, '2.0.0' );
