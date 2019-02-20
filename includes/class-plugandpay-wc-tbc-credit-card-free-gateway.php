@@ -183,16 +183,16 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 		$this->tbc->amount      = $amount * 100;
 		$this->tbc->currency    = 981;
 		$this->tbc->description = sprintf( __( '%s - Order %s', 'tbc-gateway-free' ), wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES ), $order->get_id() );
-		$this->tbc->language    = strtoupper( substr( get_bloginfo('language'), 0, -3 ) );
+		$this->tbc->language    = strtoupper( substr( get_bloginfo( 'language' ), 0, -3 ) );
 
 		$this->log( sprintf( __( 'Info ~ Order id: %s - amount: %s (%s) %s (%s), language: %s.', 'tbc-gateway-free' ), $order->get_id(), $amount, $this->tbc->amount, $currency, $this->tbc->currency, $this->tbc->language ) );
 
 		try {
 			$start = $this->tbc->sms_start_transaction();
-			if ( ! isset($start['error']) && isset($start['TRANSACTION_ID']) ) {
+			if ( ! isset( $start['error'] ) && isset( $start['TRANSACTION_ID'] ) ) {
 				$trans_id = $start['TRANSACTION_ID'];
 			} else {
-				if ( isset($start['error']) ) {
+				if ( isset( $start['error'] ) ) {
 					// Log returned error.
 					$this->log( sprintf( __( 'Error ~ Order id: %s - Error msg: %s.', 'tbc-gateway-free' ), $order->get_id(), $start['error'] ) );
 				} else {
@@ -259,13 +259,13 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 			}
 		} catch ( Exception $e ) {
 			wc_add_notice( $e->getMessage(), 'error' );
-			wp_redirect( wc_get_page_permalink( 'checkout' ) );
+			wp_safe_redirect( wc_get_page_permalink( 'checkout' ) );
 			exit();
 		}
 
 		try {
 			$transaction = $this->tbc->get_transaction_result( $trans_id );
-			if ( ! isset($transaction['RESULT']) || $transaction['RESULT'] != 'OK' ) {
+			if ( ! isset( $transaction['RESULT'] ) || 'OK' !== $transaction['RESULT'] ) {
 				$this->log( sprintf( __( 'Error ~ could not verify transaction result, Tbc did not return OK: %s', 'tbc-gateway-free' ), json_encode( $transaction ) ) );
 				throw new Exception( __( 'We could not verify transaction result, logs should contain more information about this failure.', 'tbc-gateway-free' ) );
 			}
@@ -274,7 +274,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 			$order_note = $e->getMessage();
 			$order->update_status( 'failed', $order_note );
 			wc_add_notice( $order_note, 'error' );
-			wp_redirect( wc_get_page_permalink( 'checkout' ) );
+			wp_safe_redirect( wc_get_page_permalink( 'checkout' ) );
 			exit();
 		}
 
@@ -290,7 +290,7 @@ class PlugandPay_WC_TBC_Credit_Card_Free_Gateway extends WC_Payment_Gateway {
 		WC()->cart->empty_cart();
 
 		// Redirect to thank you.
-		wp_redirect( $this->get_return_url( $order ) );
+		wp_safe_redirect( $this->get_return_url( $order ) );
 		exit();
 	}
 
